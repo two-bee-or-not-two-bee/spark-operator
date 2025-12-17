@@ -72,8 +72,11 @@ func (d *SparkPodDefaulter) Default(ctx context.Context, obj runtime.Object) err
 	if !ok {
 		return nil
 	}
-
-	namespace := pod.Namespace
+	
+	namespace := "default"
+	if pod.Namespace != "" {
+		namespace = pod.Namespace
+	}
 	if !d.isSparkJobNamespace(namespace) {
 		return nil
 	}
